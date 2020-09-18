@@ -1,11 +1,8 @@
-// Holds state: Count and Results Array
-// A class method that can update state
-// Renders 2 Child Components
-
 import React from 'react';
 import './App.css';
 import md5 from 'md5';
 import axios from 'axios';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 // Component Imports
 import Header from './components/Header'
@@ -16,13 +13,9 @@ import Footer from './components/Footer'
 
 class App extends React.Component {
 
-  // TODO: Remove count/results/headers from state
   constructor(props){
     super(props);
     this.state = {
-      // count: 0,
-      // results: [],
-      // headers: {},
       history: {},
       loading: false,
       request: {},
@@ -32,10 +25,6 @@ class App extends React.Component {
   toggleLoadingState = () => {
     this.setState({ loading: !this.state.loading });
   }
-
-  // handleForm = (count, results, headers) => {
-  //   this.setState({count, results, headers})
-  // } 
 
   handleForm = async (request) => {
 
@@ -48,7 +37,8 @@ class App extends React.Component {
       this.updateResults(response.headers, response.data);
     }
     catch (error) {
-      console.log(error);
+      this.toggleLoadingState();
+      console.log('ERROR:', error);
     }
   }
 
@@ -74,25 +64,41 @@ class App extends React.Component {
 
   render(){
     return (
-    <div className="App">
+    <BrowserRouter>
+      <div className="App">
 
-      <Header />
-      
-      <Form formHandler={this.handleForm} request={this.state.request}/>
-      
-        <main>
-      
-          <History calls={this.state.history} updateHandler={this.updateRequest}/>
+        <Header />
 
-        {/* TODO: If headers and results are not in state...where does this come from? */}
+          <main role='document'>
+          <Switch>
 
-          <Results loading={this.state.loading} headers={this.state.headers} results={this.state.results}/>
+          <Route exact path="/">
+            <Form formHandler={this.handleForm} request={this.state.request}/>
 
-        </main>
+            <History calls={this.state.history} updateHandler={this.updateRequest}/>
 
-      <Footer />
+            <Results loading={this.state.loading} headers={this.state.headers} results={this.state.results}/>
+          </Route>
+            
+          <Route exact path="/history">
 
-    </div>
+
+            <History calls={this.state.history} updateHandler={this.updateRequest}/>
+
+
+          </Route>
+
+          <Route exact path="/help">
+            <p>Help & About Us...coming soon</p>
+          </Route>
+
+            </Switch>
+          </main>
+
+        <Footer />
+
+      </div>
+    </BrowserRouter>
   );
 }
 }

@@ -11,6 +11,12 @@ function History(props){
   function loadRequest(apiCall){
     props.updateHandler(apiCall);
   }
+
+  function printResults(method, url){
+
+    // May be going down a rabbit hole??? Current theory is a second onClick option to run the API call but somehow I'm getting lost in the weeds in making that happen
+
+  }
   
   return (    
       <aside className="history">
@@ -23,7 +29,8 @@ function History(props){
               {props.calls[key].method}
             </span>
             <button 
-            className="url" 
+            className="url"
+            onClick={() => printResults(props.calls[key].method, props.calls[key].url)} 
             onClick={() => loadRequest(props.calls[key])}>
               {props.calls[key].url}
             </button>

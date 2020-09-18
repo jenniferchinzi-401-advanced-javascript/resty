@@ -3,7 +3,6 @@ import './Form.scss'
 
 function Form(props){
 
-  // TODO: Review in the AM
   const [request, setRequest] = useState({});
 
   useEffect(() => {
