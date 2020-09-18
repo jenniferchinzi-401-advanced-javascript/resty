@@ -33,7 +33,7 @@ const Results = props => {
             <ReactJson src={props.headers} />
       
             <h2>Results</h2>
-            <ReactJson  src={props.results} />
+            <ReactJson src={props.results} />
           </>
           );
         }

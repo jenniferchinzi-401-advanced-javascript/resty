@@ -69,7 +69,7 @@ class App extends React.Component {
 
         <Header />
 
-          <main>
+          <main role='document'>
           <Switch>
 
           <Route exact path="/">
