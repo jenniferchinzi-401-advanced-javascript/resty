@@ -12,35 +12,32 @@ import loading from '../images/Loader.gif';
 const Results = props => {
 
   return (
-
     <section className="results">
-
       {
-
         props.loading ? (
           <div className="loading">
             <img src={loading}
             alt="Loading" />
           </div>
-        ) : (
-          <>
-          <h2>Headers</h2>
-          <ReactJson src={props.headers} />
-
-          <h2>Results</h2>
-          <ReactJson  src={props.results} />
-          </>
-        )
-
+        ) : results(props)
       }
-
     </section>
-
-  )
-
+  )  
 }
 
-
+    function results(props){
+        if(props.results){
+          return (
+          <>
+            <h2>Headers</h2>
+            <ReactJson src={props.headers} />
+      
+            <h2>Results</h2>
+            <ReactJson  src={props.results} />
+          </>
+          );
+        }
+  }
 
 // function Results(props) {
 
